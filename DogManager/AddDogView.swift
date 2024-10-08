@@ -62,7 +62,7 @@ struct AddDogView: View {
         .frame(width: 200)
         Button("Save") {
             presentationMode.wrappedValue.dismiss()
-            viewModel.addDog(name: name, age: age, breed: breed, profilePicture: photo)
+//            viewModel.addDog(name: name, age: age, breed: breed, profilePicture: photo)
         }
         
         
@@ -87,5 +87,5 @@ extension PhotosPickerItem {
 
 
 #Preview {
-    AddDogView()
+    ContentView()
 }

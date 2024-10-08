@@ -59,7 +59,7 @@ struct MyDogsView: View {
                     }
                 }
                 .sheet(isPresented: $isPresentingAddDogView) {
-                    AddDogView() // Pasar el viewModel a la nueva vista
+                    AddDogView(viewModel: viewModel) // Pasar el viewModel a la nueva vista
                 }
             }
         }
