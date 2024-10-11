@@ -19,8 +19,8 @@ struct EventListView: View {
         NavigationStack {
             VStack {
                 Text("Events")
-                    .font(.title)
-                    .padding(.bottom, -10)
+                    .font(.largeTitle)
+                    .foregroundStyle(.blue)
                 HStack {
                     AddAnEventButtonView(selectedDog: $selectedDog, selectedEvent: $selectedEvent, selectedDate: $selectedDate, viewModel: viewModel)
                     
@@ -31,11 +31,6 @@ struct EventListView: View {
                         ForEach(EventType.allCases, id: \.self) { event in
                             Text(event.rawValue).tag(Optional(event))
                         }
-                    }
-                    
-                    Button("Clear") {
-                        viewModel.deleteAllEvents()
-                        viewModel.showEvents()
                     }
                 }
                 .padding(.horizontal)
