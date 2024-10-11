@@ -29,7 +29,7 @@ struct EventCardView: View {
             }
             Spacer()
             VStack{
-                Text(event.date.formatted(date: .abbreviated, time: .omitted))
+                Text(event.date.formatted(date: .omitted, time: .shortened))
                     .font(.headline)
             }
         }

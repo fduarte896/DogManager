@@ -98,19 +98,21 @@ struct CalendarView: View {
                     .layoutMargins(.init(top: 8, leading: 8, bottom: 8, trailing: 8))
                     .padding(.horizontal, 16)
                     .frame(height: 350)
-                    .navigationTitle("DogManager")
+                    .navigationTitle("PetManager")
                     .onAppear {
                         if let currentMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today)) {
                             proxy.scrollToMonth(containing: currentMonth, scrollPosition: .centered, animated: false)
                         }
                         viewModel.showEvents(for: today)
+                        viewModel.showDogs()
                     }
 
 
                     .padding(.top, 20)
                 
                 
-                EventListView(viewModel: viewModel, selectedDate: $selectedDate).padding(.top, -20)
+                EventListView(viewModel: viewModel, selectedDate: $selectedDate)
+                    .padding(.top, -20)
             }
         }
     }

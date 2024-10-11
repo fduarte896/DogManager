@@ -10,8 +10,10 @@ import PhotosUI
 
 struct AddDogView: View {
     
-    @State private var photo: PhotosPickerItem?
-    @State private var selectedImage: UIImage?
+    @State private var selectedPhotoItem: PhotosPickerItem? = nil
+    @State private var selectedImage: UIImage? = nil
+    @State private var profilePictureData: Data?
+    
     @State private var name: String = ""
     @State private var breed: String = ""
     @State private var age = ""
@@ -21,27 +23,47 @@ struct AddDogView: View {
     
     var body: some View {
         
-        if let selectedImage {
-            Text("Profile Picture")
-            Image(uiImage: selectedImage)
-                .resizable()
-                .scaledToFit()
-                .clipShape(Circle())
-        }
-        PhotosPicker(selection: $photo,
-                     matching: .images) {
+        if let selectedImage = selectedImage {
+                       Image(uiImage: selectedImage)
+                           .resizable()
+                           .scaledToFit()
+                           .frame(width: 200, height: 200)
+                   } else {
+                       Rectangle()
+                           .frame(width: 200, height: 200)
+                           .foregroundColor(.gray)
+                           .overlay(Text("Selecciona una imagen"))
+                   }
+        
+
+        
+        PhotosPicker(selection: $selectedPhotoItem, matching: .images){
             Text("Select a photo")
         }
-         .onChange(of: photo) { oldValue, newValue in
-             if let newValue {
+        .onChange(of: selectedPhotoItem) { oldValue, newItem in
+             if let newItem = newItem {
+                 // Cargar la imagen desde el PhotosPickerItem
                  Task {
                      do {
-                         selectedImage = try await newValue.loadUIImage()
+                         if let imageData = try await newItem.loadTransferable(type: Data.self),
+                            let uiImage = UIImage(data: imageData) {
+                             selectedImage = uiImage
+                             profilePictureData = imageData // Guardamos los datos de la imagen
+                         }
                      } catch {
-                         print("Error al cargar la imagen: \(error)")
+                         print("Error al cargar la imagen: \(error.localizedDescription)")
                      }
                  }
              }
+//             if let newValue {
+//                 Task {
+//                     do {
+//                         selectedImage = try await newValue.loadUIImage()
+//                     } catch {
+//                         print("Error al cargar la imagen: \(error)")
+//                     }
+//                 }
+//             }
          }
         
 
@@ -62,28 +84,14 @@ struct AddDogView: View {
         .frame(width: 200)
         Button("Save") {
             presentationMode.wrappedValue.dismiss()
-//            viewModel.addDog(name: name, age: age, breed: breed, profilePicture: photo)
-        }
-        
-        
-    }
-}
-
-extension PhotosPickerItem {
-    /// Cargar y devolver un UIImage desde un PhotosPickerItem
-    func loadUIImage() async throws -> UIImage? {
-        do {
-            if let data = try await self.loadTransferable(type: Data.self) {
-                return UIImage(data: data)
+            if let profilePictureData = profilePictureData{
+                viewModel.addDog(name: name, age: Int(age) ?? 0, breed: breed, profilePictureData: profilePictureData)
             }
-        } catch {
-            print(error.localizedDescription)
-            throw error
         }
-        return nil
+        
+        
     }
 }
-
 
 
 #Preview {

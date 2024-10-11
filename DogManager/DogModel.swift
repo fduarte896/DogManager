@@ -13,7 +13,7 @@ struct DogModel : Identifiable, Codable, Hashable, Equatable {
     var name: String
     var age: Int
     var breed: String
-    var profilePicture: String
+    var profilePicture: Data?
 
     static func == (lhs: DogModel, rhs: DogModel) -> Bool {
         return lhs.id == rhs.id

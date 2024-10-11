@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct dogDetailView: View {
+struct DogDetailView: View {
     
     var dog : DogModel
     @ObservedObject var viewModel : EventViewModel
@@ -27,11 +27,30 @@ struct dogDetailView: View {
         
         ScrollView {
             HStack {
-                Image(dog.profilePicture)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .frame(width: 150)
+                if let imageData = dog.profilePicture, let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .overlay(
+                            Circle().stroke(Color.black, lineWidth: 6)
+                        )
+                        .clipShape(Circle())
+                        .padding(.trailing, 16)
+                } else {
+                    // Imagen por defecto si no hay imagen
+                    Circle()
+                        .frame(width: 100, height: 100)
+                        .foregroundStyle(.gray)
+                        .padding(.trailing, 16)
+                        .overlay {
+                            Image(systemName: "pawprint")
+                                .foregroundStyle(Color.white)
+//                                                    .frame(width: 150, height: 150)
+                                .font(.largeTitle)
+                        }
+                }
+
                 VStack{
                     Text(dog.name)
                         .bold()

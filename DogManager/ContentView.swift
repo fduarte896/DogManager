@@ -17,38 +17,9 @@ struct ContentView: View {
             
             MyDogsView(viewModel: viewModel)
                 .tabItem {
-                    Label("My Dogs", systemImage: "dog")
+                    Label("My Pets", systemImage: "pawprint")
                 }
-//            if let avril = viewModel.dogs.first(where: { $0.name == .avril }) {
-//                dogDetailView(dog: avril, viewModel: viewModel)
-//                    
-//                    .tabItem {
-//                        Text("Avril")
-//                    }
-//            }
-//
-//            if let eevee = viewModel.dogs.first(where: { $0.name == .eevee }) {
-//                dogDetailView(dog: eevee, viewModel: viewModel)
-//                    
-//                    .tabItem {
-//                        Text("Eevee")
-//                    }
-//            }
-//
-//            if let mac = viewModel.dogs.first(where: { $0.name == .mac }) {
-//                dogDetailView(dog: mac, viewModel: viewModel)
-//                    
-//                    .tabItem {
-//                        Text("Mac")
-//                    }
-//                
-//            }
-//            
-//            AddDogView()
-//                .tabItem {
-//                    Text("Add Dog")
-//                }
-//            
+
         }
     }
 }

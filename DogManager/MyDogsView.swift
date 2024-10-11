@@ -18,20 +18,31 @@ struct MyDogsView: View {
             ScrollView{
                 VStack{
                     ForEach(viewModel.dogs) { dog in
-      
-                            NavigationLink(destination: dogDetailView(dog: dog, viewModel: viewModel)) {
+                            NavigationLink(destination: DogDetailView(dog: dog, viewModel: viewModel)) {
                                 HStack{
-                                    Image(dog.profilePicture)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 100, height: 100)
-                                        //add a contorn to the picture
-                                        .overlay(
-                                            Circle().stroke(Color.black, lineWidth: 6) // Añadir contorno negro
-                                        )
-                                        .clipShape(Circle())
-                                        .padding(.trailing, 50)
-            //                        Spacer()
+                                    if let imageData = dog.profilePicture, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 100, height: 100)
+                                            .overlay(
+                                                Circle().stroke(Color.black, lineWidth: 6)
+                                            )
+                                            .clipShape(Circle())
+                                            .padding(.trailing, 16)
+                                    } else {
+                                        // Imagen por defecto si no hay imagen
+                                        Circle()
+                                            .frame(width: 100, height: 100)
+                                            .foregroundStyle(.gray)
+                                            .padding(.trailing, 16)
+                                            .overlay {
+                                                Image(systemName: "pawprint")
+                                                    .foregroundStyle(Color.white)
+//                                                    .frame(width: 150, height: 150)
+                                                    .font(.largeTitle)
+                                            }
+                                    }
                                     Text(dog.name)
                                         .font(.largeTitle)
                                         .foregroundStyle(.black)
@@ -39,18 +50,20 @@ struct MyDogsView: View {
                                 }
                                 .padding()
                                 .frame(width: 300)
-                                .background(getBackgroundColor(for: dog))
+//                                .background(getBackgroundColor(for: dog))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
 
                             }
                             
                         
-                        .navigationTitle("My Dogs")
+                        .navigationTitle("My Pets")
 
                     }
 
                 }
-
+                .onAppear {
+                    viewModel.showDogs()
+                }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Add a Dog", systemImage: "plus.circle") {

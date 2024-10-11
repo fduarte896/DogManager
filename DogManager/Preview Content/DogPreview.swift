@@ -9,6 +9,6 @@ import Foundation
 
 extension DogModel {
     static var preview: DogModel {
-        DogModel(id: UUID(uuidString: "UUID-AVRIL")!, name: "Avril", age: 10, breed: "Siberian Husky", profilePicture: "avrilPP")
+        DogModel(id: UUID(uuidString: "UUID-AVRIL")!, name: "Avril", age: 10, breed: "Siberian Husky")
     }
 }

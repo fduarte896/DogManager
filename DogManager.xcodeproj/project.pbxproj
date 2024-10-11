@@ -22,7 +22,7 @@
 		0ED7D47F2C874961009F3D68 /* DayRangeIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D47E2C874961009F3D68 /* DayRangeIndicatorView.swift */; };
 		0ED7D4812C875594009F3D68 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D4802C875594009F3D68 /* CalendarView.swift */; };
 		0ED7D4832C875622009F3D68 /* SwiftUIDayRangeIndicatorViewRepresentableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D4822C875622009F3D68 /* SwiftUIDayRangeIndicatorViewRepresentableView.swift */; };
-		0ED7D4852C87606F009F3D68 /* dogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D4842C87606F009F3D68 /* dogDetailView.swift */; };
+		0ED7D4852C87606F009F3D68 /* DogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D4842C87606F009F3D68 /* DogDetailView.swift */; };
 		0ED7D48C2C8760A7009F3D68 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D48B2C8760A7009F3D68 /* ViewModel.swift */; };
 		0ED7D4912C8799FF009F3D68 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D4902C8799FF009F3D68 /* EventModel.swift */; };
 		0ED7D4932C879BC4009F3D68 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7D4922C879BC4009F3D68 /* EventListView.swift */; };
@@ -46,7 +46,7 @@
 		0ED7D47E2C874961009F3D68 /* DayRangeIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRangeIndicatorView.swift; sourceTree = "<group>"; };
 		0ED7D4802C875594009F3D68 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		0ED7D4822C875622009F3D68 /* SwiftUIDayRangeIndicatorViewRepresentableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIDayRangeIndicatorViewRepresentableView.swift; sourceTree = "<group>"; };
-		0ED7D4842C87606F009F3D68 /* dogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dogDetailView.swift; sourceTree = "<group>"; };
+		0ED7D4842C87606F009F3D68 /* DogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailView.swift; sourceTree = "<group>"; };
 		0ED7D48B2C8760A7009F3D68 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		0ED7D4902C8799FF009F3D68 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		0ED7D4922C879BC4009F3D68 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
@@ -117,14 +117,14 @@
 			isa = PBXGroup;
 			children = (
 				0ED7D46F2C865E09009F3D68 /* ContentView.swift */,
+				0ED7D4802C875594009F3D68 /* CalendarView.swift */,
 				0E0C9BF72CB5C682007F5F5A /* MyDogsView.swift */,
 				0E2B5F6C2CAF397800463845 /* AddDogView.swift */,
-				0ED7D4802C875594009F3D68 /* CalendarView.swift */,
 				0ED7D4922C879BC4009F3D68 /* EventListView.swift */,
 				0E9F74972C88C4C000B1BFAD /* AddAnEventButtonView.swift */,
 				0EE07F352C8A15EE001A7457 /* EventCardView.swift */,
 				0E9509652CA323BE0056577D /* EventDetailView.swift */,
-				0ED7D4842C87606F009F3D68 /* dogDetailView.swift */,
+				0ED7D4842C87606F009F3D68 /* DogDetailView.swift */,
 				0ED7D47E2C874961009F3D68 /* DayRangeIndicatorView.swift */,
 				0ED7D4822C875622009F3D68 /* SwiftUIDayRangeIndicatorViewRepresentableView.swift */,
 			);
@@ -229,7 +229,7 @@
 				0ED7D4932C879BC4009F3D68 /* EventListView.swift in Sources */,
 				0ED7D4702C865E09009F3D68 /* ContentView.swift in Sources */,
 				0ED7D48C2C8760A7009F3D68 /* ViewModel.swift in Sources */,
-				0ED7D4852C87606F009F3D68 /* dogDetailView.swift in Sources */,
+				0ED7D4852C87606F009F3D68 /* DogDetailView.swift in Sources */,
 				0ED7D4972C879CF0009F3D68 /* DogModel.swift in Sources */,
 				0ED7D4832C875622009F3D68 /* SwiftUIDayRangeIndicatorViewRepresentableView.swift in Sources */,
 				0E9509662CA323BE0056577D /* EventDetailView.swift in Sources */,

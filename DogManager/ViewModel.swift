@@ -16,7 +16,7 @@ class EventViewModel : ObservableObject {
     @Published var selectedDate1: Date?
     @Published var selectedDogName1: String?
     @Published var selectedEventType1: EventType?
-
+    
     @Published var events : [EventModel] = []
     @Published var dogs : [DogModel] = []
     @Published var selectedDate : Date?
@@ -33,9 +33,9 @@ class EventViewModel : ObservableObject {
         addYAxisEvents()
         //Precarga de perros
         
-        let avril = DogModel(id: UUID(), name: "Avril", age: 3, breed: "Husky", profilePicture: "avrilPP")
-        let eevee = DogModel(id: UUID(), name: "Eevee", age: 4, breed: "Border Collie", profilePicture: "eeveePP")
-        let mac = DogModel(id: UUID(), name: "Mac", age: 3, breed: "Australian Shepherd", profilePicture: "macPP")
+        let avril = DogModel(id: UUID(), name: "Avril", age: 3, breed: "Husky")
+        let eevee = DogModel(id: UUID(), name: "Eevee", age: 4, breed: "Border Collie")
+        let mac = DogModel(id: UUID(), name: "Mac", age: 3, breed: "Australian Shepherd")
 
         dogs = [avril, eevee, mac]
 
@@ -49,10 +49,19 @@ class EventViewModel : ObservableObject {
 
     }
     
-    func addDog(name: String, age: Int, breed: String, profilePicture: String) {
-        let newDog = DogModel(id: UUID(), name: name, age: age, breed: breed, profilePicture: profilePicture)
+    func addDog(name: String, age: Int, breed: String, profilePictureData: Data) {
+        let newDog = DogModel(id: UUID(), name: name, age: age, breed: breed, profilePicture: profilePictureData)
         dogs.append(newDog)
         persistDogs(dogsArray: dogs)
+    }
+    
+    func persistDogs(dogsArray: [DogModel]) {
+        do{
+            let encodedData = try JSONEncoder().encode(dogsArray)
+            try encodedData.write(to: urlDogsDocumentFolder, options: .atomic)
+        } catch {
+            print(error)
+        }
     }
 
     func addEvents(title: String, date: Date, description: String, eventType: EventType, dog: DogModel) {
@@ -66,6 +75,8 @@ class EventViewModel : ObservableObject {
         events.append(newEvent)
         persistEvents(eventsArray: events)
     }
+    
+
     
     func deleteAllEvents() {
         events.removeAll()
@@ -85,14 +96,7 @@ class EventViewModel : ObservableObject {
         }
     }
 
-    func persistDogs(dogsArray: [DogModel]) {
-        do{
-            let encodedData = try JSONEncoder().encode(dogsArray)
-            try encodedData.write(to: urlDogsDocumentFolder, options: .atomic)
-        } catch {
-            print(error)
-        }
-    }
+
     
     func persistEvents(eventsArray: [EventModel]) {
         
@@ -112,14 +116,35 @@ class EventViewModel : ObservableObject {
                 print("Events loaded from disk")
                 return decodedEvents
             } catch {
-                print("Error loading data from disk", error)
+                print("Error loading Events data from disk", error)
                 return []
             }
         } else {
             return []
         }
     }
+    
+    func decodeDogs() -> [DogModel] {
+        if FileManager.default.fileExists(atPath: urlDogsDocumentFolder.path) {
+            do {
+                let data = try Data(contentsOf: urlDogsDocumentFolder)
+                let decodedDogs = try JSONDecoder().decode([DogModel].self, from: data)
+                print("Dogs loaded from disk")
+                return decodedDogs
+            } catch {
+                print ("Error loading Dogs data from disk", error)
+                return []
+            }
 
+        }
+        else {
+            return []
+        }
+    }
+
+    func showDogs() {
+        dogs = decodeDogs()
+    }
     
     func showEvents(for date: Date? = nil) {
         // Cargamos los eventos desde el archivo
@@ -156,20 +181,7 @@ class EventViewModel : ObservableObject {
         return counts
     }
 
-//    func updateEvent(_ updatedEvent: EventModel) {
-//        // Actualizar en 'events' array
-//        if let index = events.firstIndex(where: { $0.id == updatedEvent.id }) {
-//            events[index] = updatedEvent
-//        }
-//
-//        // Actualizar en 'filteredEvents' si es necesario
-//        if let index = filteredEvents.firstIndex(where: { $0.id == updatedEvent.id }) {
-//            filteredEvents[index] = updatedEvent
-//        }
-//
-//        // Persistir los cambios
-//        persistEvents(eventsArray: events)
-//    }
+
     func updateEvent(_ updatedEvent: EventModel) {
         // Actualizar en 'events' array
         if let index = events.firstIndex(where: { $0.id == updatedEvent.id }) {
